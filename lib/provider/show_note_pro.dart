@@ -59,8 +59,6 @@ class ShowNotePro with ChangeNotifier {
   }
 
   Future<void> updateNoted(int id, String title, String description) async {
-    // final title = titleController.text;
-    // final description = descriptionController.text;
     final updatedNote = Notemdl(id: id, title: title, description: description);
     await NotesDatabase.instance.updateNote(updatedNote.toMap());
     await loadNotes();
