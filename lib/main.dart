@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_task/UI_pages/add_note_Screen.dart';
+import 'package:note_app_task/UI_pages/sinup_page.dart';
 import 'package:note_app_task/provider/show_note_pro.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Notes App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const HomePage(),
+      home: const SinupPage(),
     );
   }
 }

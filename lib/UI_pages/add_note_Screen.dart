@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app_task/UI_pages/sinup_page.dart';
 import 'package:note_app_task/UI_pages/write_note_screen.dart';
 import 'package:note_app_task/provider/show_note_pro.dart';
 import 'package:provider/provider.dart';
@@ -24,11 +25,66 @@ class _HomePageState extends State<HomePage> {
     pro.loadNotes();
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "My Notes",
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        iconTheme: IconThemeData(
+          color: Colors.white,
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.teal,
+        elevation: 1,
+        title: const Text(
+          'Notes',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
+        actions: [
+          PopupMenuButton<int>(
+            icon: Icon(
+              Icons.more_vert,
+              size: 30,
+              color: Colors.white,
+            ),
+            offset: Offset(0, 35),
+            onSelected: (value) {
+              if (value == 1) {
+                print("Share tapped");
+              } else if (value == 2) {
+                print("Logout tapped");
+              }
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 3,
+                child: Row(
+                  children: [
+                    Text("Share"),
+                    SizedBox(width: 12),
+                    Icon(Icons.share, color: Colors.black),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                  value: 4,
+                  child: Row(
+                    children: [
+                      Text("Logout"),
+                      SizedBox(
+                        width: 0,
+                      ),
+                      IconButton(
+                          onPressed: () async {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SinupPage()));
+                          },
+                          icon: Icon(Icons.logout, color: Colors.black)),
+                    ],
+                  )),
+            ],
+          ),
+        ],
       ),
       body: provider.notes.isEmpty
           ? const Center(
@@ -48,7 +104,8 @@ class _HomePageState extends State<HomePage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0)
+                      .copyWith(bottom: 12),
                   child: ListTile(
                     title: Text(
                       note.title,
@@ -62,33 +119,35 @@ class _HomePageState extends State<HomePage> {
                       note.description,
                       style: const TextStyle(color: Colors.blue),
                       //maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                      // overflow: TextOverflow.ellipsis,
                     ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
+                    trailing:
+                        // Row(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        //  mainAxisSize: MainAxisSize.min,
+                        // children: [
+                        // IconButton(
+                        //   onPressed: () {
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (_) => WriteNoteScreen()));
+                        //     context.read<ShowNotePro>().updateNoted(context,
+                        //         note.id!, note.title, note.description);
+                        //     pro.loadNotes();
+                        //   },
+                        //   icon: const Icon(Icons.edit, color: Colors.green),
+                        // ),
                         IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => WriteNoteScreen()));
-                            // context.read<ShowNotePro>().updateNoted(
-                            //     note.id!, note.title, note.description);
-                            // pro.loadNotes();
-                          },
-                          icon: const Icon(Icons.edit, color: Colors.green),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () async {
-                            context.read<ShowNotePro>().deleteNote(note.id!);
-                            //await pro.loadNotes();
-                          },
-                        ),
-                      ],
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () async {
+                        context.read<ShowNotePro>().deleteNote(note.id!);
+                        await pro.loadNotes();
+                      },
                     ),
+                    // ],
                   ),
+                  // ),
                 );
               },
             ),

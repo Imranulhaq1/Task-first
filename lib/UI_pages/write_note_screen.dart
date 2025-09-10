@@ -3,7 +3,7 @@ import 'package:note_app_task/provider/show_note_pro.dart';
 import 'package:provider/provider.dart';
 
 class WriteNoteScreen extends StatelessWidget {
-  const WriteNoteScreen({super.key});
+  const WriteNoteScreen({super.key, int? noteId});
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +11,18 @@ class WriteNoteScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Write Notes",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        iconTheme: IconThemeData(
+          color: Colors.white,
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.teal,
+        elevation: 1,
+        title: const Text(
+          'Write Note',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Center(
         child: Padding(
@@ -44,7 +51,7 @@ class WriteNoteScreen extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Colors.teal,
                   fixedSize: const Size(410, 48),
                 ),
                 onPressed: () {

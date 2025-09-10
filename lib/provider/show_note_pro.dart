@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:note_app_task/UI_pages/write_note_screen.dart';
 import 'package:note_app_task/database/database.dart';
 import 'package:note_app_task/modle/node.dart';
 import 'package:provider/provider.dart';
@@ -58,9 +59,36 @@ class ShowNotePro with ChangeNotifier {
     }
   }
 
-  Future<void> updateNoted(int id, String title, String description) async {
+  // Future<void> updateNoted(
+  //     BuildContext context, int id, String title, String description) async {
+  //   try {
+  //     final updatedNote =
+  //         Notemdl(id: id, title: title, description: description);
+
+  //     await NotesDatabase.instance.updateNote(updatedNote.toMap());
+
+  //     // update local list too
+  //     final index = _notes.indexWhere((note) => note.id == id);
+  //     if (index != -1) {
+  //       _notes[index] = updatedNote;
+  //     }
+
+  //     notifyListeners();
+
+  //     Navigator.of(context).pop(); // 👈 go back instead of pushing again
+  //     await showdialogg(context, "Success", "Note updated successfully");
+  //   } catch (e) {
+  //     debugPrint("Error updating note: $e");
+  //     await showdialogg(context, "Error", "Failed to update note");
+  //   }
+  // }
+
+  Future<void> updateNoted(
+      BuildContext context, int id, String title, String description) async {
     final updatedNote = Notemdl(id: id, title: title, description: description);
-    await NotesDatabase.instance.updateNote(updatedNote.toMap());
+    await NotesDatabase.instance.updateNote(
+      updatedNote.toMap(),
+    );
     await loadNotes();
     notifyListeners();
   }
