@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:note_app_task/UI_pages/add_note_Screen.dart';
 import 'package:note_app_task/UI_pages/sinup_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hux/hux.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,6 +12,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>(); // ✅ form key
+
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
   Future<bool> checkLogin(String email, String password) async {
@@ -74,8 +77,9 @@ class _LoginPageState extends State<LoginPage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 66),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
+            child: Form(
+              key: _formKey,
+              child: Column(children: [
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 45, vertical: 10),
@@ -205,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-              ],
+              ]),
             ),
           ),
         ),
